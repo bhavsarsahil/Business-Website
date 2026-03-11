@@ -516,3 +516,44 @@ function closeLightbox() {
 lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 lightboxClose.addEventListener('click', closeLightbox);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+// ===== FSSAI CERTIFICATE LIGHTBOX =====
+// Wire FSSAI certificate image to reuse the same gallery lightbox
+const fssaiCertWrap = document.querySelector('.fssai-cert-image-wrap');
+if (fssaiCertWrap) {
+  fssaiCertWrap.addEventListener('click', function () {
+    const img = this.querySelector('.fssai-cert-img');
+    if (!img) return;
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    if (typeof gsap !== 'undefined') {
+      gsap.fromTo(lightboxImg,
+        { scale: 0.85, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.5)' }
+      );
+    }
+  });
+}
+
+// ===== FSSAI PILLARS STAGGER ANIMATION =====
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+  const fssaiPillars = document.querySelectorAll('.fssai-pillar');
+  if (fssaiPillars.length) {
+    gsap.fromTo(fssaiPillars,
+      { y: 40, opacity: 0 },
+      {
+        y: 0, opacity: 1,
+        duration: 0.6,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.fssai-pillars',
+          start: 'top 82%',
+          once: true,
+        },
+      }
+    );
+  }
+}

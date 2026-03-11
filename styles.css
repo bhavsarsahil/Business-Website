@@ -60,6 +60,8 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 body {
@@ -67,6 +69,7 @@ body {
     background: var(--bg-dark);
     color: var(--text-primary);
     overflow-x: hidden;
+    max-width: 100%;
     line-height: 1.6;
 }
 
@@ -2077,8 +2080,21 @@ ul {
     }
 
     .gola-container {
-        width: 300px;
-        height: 300px;
+        width: 280px;
+        height: 280px;
+        max-width: calc(100vw - 48px);
+    }
+
+    /* Clip overflow on all sections with absolute decorative elements */
+    .hero,
+    .story-section,
+    .menu-section,
+    .gallery-section,
+    .location-section,
+    .order-section,
+    .fssai-section,
+    .contact-section {
+        overflow-x: hidden;
     }
 
     .story-content {
@@ -2194,6 +2210,33 @@ ul {
     }
 }
 
+/* ===== MOBILE OVERFLOW — UNIVERSAL SAFETY FIX ===== */
+/* Prevents ANY element from causing a horizontal scrollbar on mobile */
+@media (max-width: 768px) {
+    * {
+        max-width: 100%;
+    }
+
+    /* Exempt elements that intentionally scroll horizontally */
+    .marquee-banner {
+        max-width: none;
+        width: 100%;
+    }
+
+    .marquee-track {
+        max-width: none;
+    }
+
+    /* Ensure all sections are fully contained */
+    section,
+    nav,
+    footer,
+    .marquee-banner {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 /* ===== SCROLL ANIMATION ENHANCEMENT ===== */
 [data-aos] {
     will-change: transform, opacity;
@@ -2217,4 +2260,430 @@ ul {
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(var(--primary), var(--accent-purple));
     border-radius: 3px;
+}
+
+/* ============================================
+   FSSAI CERTIFICATION SECTION STYLES
+   ============================================ */
+
+/* ---- Trust Badge (above Menu) ---- */
+.fssai-trust-badge {
+    margin-bottom: 28px;
+}
+
+.fssai-badge-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.08), rgba(46, 213, 115, 0.03));
+    border: 1px solid rgba(46, 213, 115, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 16px 24px;
+    flex-wrap: wrap;
+}
+
+.fssai-badge-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2ed573, #7bed9f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #0f1f0f;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(46, 213, 115, 0.35);
+    animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 16px rgba(46, 213, 115, 0.35);
+    }
+
+    50% {
+        box-shadow: 0 4px 28px rgba(46, 213, 115, 0.6);
+    }
+}
+
+.fssai-badge-text {
+    flex: 1;
+    min-width: 180px;
+}
+
+.fssai-badge-text strong {
+    display: block;
+    color: #2ed573;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.fssai-badge-text span {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.fssai-badge-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    background: rgba(46, 213, 115, 0.12);
+    border: 1px solid rgba(46, 213, 115, 0.35);
+    color: #2ed573;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: var(--transition);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.fssai-badge-link:hover {
+    background: rgba(46, 213, 115, 0.2);
+    transform: translateX(4px);
+}
+
+/* ---- FSSAI Section ---- */
+.fssai-section {
+    background: var(--bg-dark);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.fssai-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.fb-a {
+    width: 420px;
+    height: 420px;
+    background: #2ed573;
+    top: -80px;
+    left: -100px;
+    animation: blobMove 10s ease-in-out infinite alternate;
+}
+
+.fb-b {
+    width: 350px;
+    height: 350px;
+    background: #1e90ff;
+    bottom: -60px;
+    right: -80px;
+    animation: blobMove 12s ease-in-out infinite alternate-reverse;
+}
+
+/* ---- Trust Pillars Grid ---- */
+.fssai-pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 56px;
+}
+
+.fssai-pillar {
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: 28px 20px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.fssai-pillar:hover {
+    transform: translateY(-8px);
+    border-color: rgba(46, 213, 115, 0.25);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+}
+
+.fssai-pillar-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--pc) 15%, transparent);
+    border: 2px solid color-mix(in srgb, var(--pc) 40%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: var(--pc);
+    margin: 0 auto 16px;
+    transition: var(--transition);
+}
+
+.fssai-pillar:hover .fssai-pillar-icon {
+    background: color-mix(in srgb, var(--pc) 25%, transparent);
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.fssai-pillar h4 {
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.fssai-pillar p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+/* ---- Certificate Card ---- */
+.fssai-cert-wrapper {
+    max-width: 760px;
+    margin: 0 auto 56px;
+}
+
+.fssai-cert-card {
+    background: var(--bg-glass);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+}
+
+.fssai-cert-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.45);
+    border-color: rgba(46, 213, 115, 0.3);
+}
+
+.fssai-cert-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 28px;
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.12), rgba(30, 144, 255, 0.08));
+    border-bottom: 1px solid var(--border-glass);
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.fssai-logo-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #2ed573, #1e90ff);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(46, 213, 115, 0.35);
+}
+
+.fssai-logo-badge i {
+    font-size: 1.2rem;
+}
+
+.fssai-cert-title {
+    flex: 1;
+}
+
+.fssai-cert-title h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.fssai-cert-title p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.fssai-cert-ribbon {
+    background: linear-gradient(135deg, #2ed573, #1aab5a);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(46, 213, 115, 0.35);
+}
+
+/* Certificate image area */
+.fssai-cert-image-wrap {
+    position: relative;
+    cursor: zoom-in;
+    overflow: hidden;
+    max-height: 440px;
+}
+
+.fssai-cert-img {
+    width: 100%;
+    height: auto;
+    max-height: 440px;
+    object-fit: contain;
+    object-position: center;
+    background: rgba(255, 255, 255, 0.03);
+    transition: transform 0.45s ease;
+    display: block;
+}
+
+.fssai-cert-image-wrap:hover .fssai-cert-img {
+    transform: scale(1.03);
+}
+
+.fssai-cert-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, transparent 55%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 24px;
+    gap: 10px;
+    color: white;
+    font-size: 0.92rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.fssai-cert-image-wrap:hover .fssai-cert-overlay {
+    opacity: 1;
+}
+
+.fssai-cert-overlay i {
+    font-size: 1.2rem;
+    color: var(--accent-green);
+}
+
+.fssai-cert-footer {
+    padding: 16px 28px;
+    border-top: 1px solid var(--border-glass);
+}
+
+.fssai-cert-info {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.fssai-cert-info span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.fssai-cert-info span i {
+    color: #2ed573;
+}
+
+/* ---- Certified Banner ---- */
+.fssai-certified-banner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.fssai-certified-inner {
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.07), rgba(30, 144, 255, 0.05));
+    border: 1px solid rgba(46, 213, 115, 0.2);
+    border-radius: var(--radius-md);
+    padding: 40px 36px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.fssai-cert-badge-large {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.15), rgba(30, 144, 255, 0.1));
+    border: 2px solid rgba(46, 213, 115, 0.35);
+    border-radius: 60px;
+    padding: 12px 24px;
+}
+
+.fssai-cert-badge-large>i {
+    font-size: 2rem;
+    color: #2ed573;
+}
+
+.fssai-cert-badge-large strong {
+    display: block;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.fssai-cert-badge-large span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+}
+
+.fssai-certified-inner>p {
+    color: var(--text-secondary);
+    font-size: 0.97rem;
+    line-height: 1.8;
+    font-style: italic;
+    max-width: 680px;
+}
+
+/* ============================================
+   FSSAI RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 900px) {
+    .fssai-pillars {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .fssai-badge-inner {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .fssai-pillars {
+        grid-template-columns: 1fr;
+    }
+
+    .fssai-cert-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .fssai-cert-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .fssai-certified-inner {
+        padding: 28px 20px;
+    }
+
+    .fssai-cert-badge-large {
+        flex-direction: column;
+        text-align: center;
+        border-radius: var(--radius-md);
+        padding: 16px 20px;
+    }
 }
