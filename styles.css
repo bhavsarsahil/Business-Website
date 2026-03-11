@@ -1218,6 +1218,8 @@ ul {
     gap: 8px;
     padding: 20px 24px;
     flex: 1;
+    align-items: flex-start;
+    align-content: flex-start;
 }
 
 .flavor-tag {
@@ -1225,15 +1227,22 @@ ul {
     border-radius: 50px;
     font-size: 0.82rem;
     font-weight: 600;
-    background: color-mix(in srgb, var(--fc) 15%, transparent);
-    border: 1px solid color-mix(in srgb, var(--fc) 40%, transparent);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--fc);
     transition: var(--transition-fast);
     cursor: default;
+    display: inline-block;
+    white-space: nowrap;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: fit-content;
+    line-height: 1.4;
 }
 
 .flavor-tag:hover {
-    background: color-mix(in srgb, var(--fc) 25%, transparent);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.35);
     transform: scale(1.06);
 }
 
@@ -2211,27 +2220,40 @@ ul {
 }
 
 /* ===== MOBILE OVERFLOW — UNIVERSAL SAFETY FIX ===== */
-/* Prevents ANY element from causing a horizontal scrollbar on mobile */
+/* ===== MOBILE OVERFLOW — TARGETED FIX ===== */
+/* Only prevent overflow on specific wide elements, not everything */
 @media (max-width: 768px) {
-    * {
+    /* Sections with absolute decorative elements */
+    .hero,
+    .story-section,
+    .menu-section,
+    .gallery-section,
+    .fssai-section,
+    .order-section,
+    .contact-section,
+    .location-section {
+        overflow-x: hidden;
+    }
+
+    /* Prevent images and iframes from overflowing */
+    img,
+    iframe {
         max-width: 100%;
+        height: auto;
     }
 
-    /* Exempt elements that intentionally scroll horizontally */
-    .marquee-banner {
-        max-width: none;
-        width: 100%;
-    }
+    /* Wide decorative blobs - reduce on mobile */
+    .blob-1 { width: 300px; height: 300px; }
+    .blob-2 { width: 250px; height: 250px; }
+    .blob-3 { width: 200px; height: 200px; }
 
+    /* Marquee stays full-width scroll as intended */
     .marquee-track {
-        max-width: none;
+        width: max-content;
     }
 
-    /* Ensure all sections are fully contained */
-    section,
-    nav,
-    footer,
-    .marquee-banner {
+    /* Sections always full-width */
+    section, nav, footer {
         width: 100%;
         box-sizing: border-box;
     }
