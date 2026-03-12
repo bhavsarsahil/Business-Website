@@ -65,55 +65,42 @@ function initHamburger() {
   const navLinks = document.getElementById('navLinks');
   if (!hamburger || !navLinks) return;
 
-  let scrollY = 0;
-
-  function lockBody() {
-    // Save scroll position then lock body in place (mobile-safe technique)
-    scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
+  function openMenu() {
+    navLinks.classList.add('open');
+    hamburger.classList.add('active');
+    // Lock background scroll (both html+body for iOS Safari support)
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
   }
 
-  function unlockBody() {
-    // Restore position and scroll
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    window.scrollTo(0, scrollY);
+  function closeMenu() {
+    navLinks.classList.remove('open');
+    hamburger.classList.remove('active');
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
   }
 
   hamburger.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    hamburger.classList.toggle('active', isOpen);
-    if (isOpen) {
-      lockBody();
+    if (navLinks.classList.contains('open')) {
+      closeMenu();
     } else {
-      unlockBody();
+      openMenu();
     }
   });
 
-  // Close on link click
+  // Close on nav link click — overflow cleared BEFORE smooth scroll fires
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('active');
-      unlockBody();
+      closeMenu();
     });
   });
 
   // Close on outside click
   document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-      if (navLinks.classList.contains('open')) {
-        navLinks.classList.remove('open');
-        hamburger.classList.remove('active');
-        unlockBody();
-      }
+    if (navLinks.classList.contains('open') &&
+        !hamburger.contains(e.target) &&
+        !navLinks.contains(e.target)) {
+      closeMenu();
     }
   });
 }
