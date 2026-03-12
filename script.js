@@ -65,10 +65,36 @@ function initHamburger() {
   const navLinks = document.getElementById('navLinks');
   if (!hamburger || !navLinks) return;
 
+  let scrollY = 0;
+
+  function lockBody() {
+    // Save scroll position then lock body in place (mobile-safe technique)
+    scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+  }
+
+  function unlockBody() {
+    // Restore position and scroll
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, scrollY);
+  }
+
   hamburger.addEventListener('click', () => {
     const isOpen = navLinks.classList.toggle('open');
     hamburger.classList.toggle('active', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (isOpen) {
+      lockBody();
+    } else {
+      unlockBody();
+    }
   });
 
   // Close on link click
@@ -76,16 +102,18 @@ function initHamburger() {
     link.addEventListener('click', () => {
       navLinks.classList.remove('open');
       hamburger.classList.remove('active');
-      document.body.style.overflow = '';
+      unlockBody();
     });
   });
 
   // Close on outside click
   document.addEventListener('click', (e) => {
     if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('active');
-      document.body.style.overflow = '';
+      if (navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+        hamburger.classList.remove('active');
+        unlockBody();
+      }
     }
   });
 }

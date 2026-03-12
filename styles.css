@@ -2037,14 +2037,25 @@ ul {
     .nav-links {
         display: none;
         position: fixed;
-        inset: 0;
-        background: rgba(15, 12, 26, 0.97);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(15, 12, 26, 0.98);
         backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 8px;
-        z-index: 999;
+        justify-content: flex-start;
+        padding-top: 80px;
+        padding-bottom: 40px;
+        gap: 4px;
+        z-index: 9000;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
     }
 
     .nav-links.open {
@@ -2052,8 +2063,8 @@ ul {
     }
 
     .nav-link {
-        font-size: 1.3rem;
-        padding: 12px 24px;
+        font-size: 1.25rem;
+        padding: 12px 32px;
     }
 
     .nav-cta {
@@ -2062,7 +2073,7 @@ ul {
 
     .hamburger {
         display: flex;
-        z-index: 1001;
+        z-index: 9001;
         position: relative;
     }
 }
