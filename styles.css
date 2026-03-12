@@ -1264,6 +1264,120 @@ ul {
     padding: 20px 24px;
 }
 
+/* --- Syrup section enhancements --- */
+.syrup-size-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: 6px;
+    position: relative;
+    z-index: 1;
+}
+
+.syrup-info-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.syrup-info-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.13);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: var(--transition-fast);
+}
+
+.syrup-info-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.syrup-info-card > i {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.syrup-price-card > i {
+    color: var(--accent-yellow);
+}
+
+.syrup-info-card > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.syrup-info-label {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.65);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+.syrup-info-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+    font-family: var(--font-display);
+    line-height: 1;
+}
+
+.syrup-price-card .syrup-info-value {
+    color: var(--accent-yellow);
+    text-shadow: 0 0 12px rgba(255, 211, 42, 0.4);
+}
+
+.syrup-bulk-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.2), rgba(46, 213, 115, 0.08));
+    border: 1px solid rgba(46, 213, 115, 0.4);
+    color: #2ed573;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    animation: badgePulse 3s ease-in-out infinite;
+}
+
+.syrup-bulk-badge i {
+    font-size: 0.95rem;
+}
+
+/* Mobile adjustments for syrup info */
+@media (max-width: 600px) {
+    .syrup-info-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .syrup-info-card,
+    .syrup-bulk-badge {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
 /* ===== GALLERY SECTION ===== */
 .gallery-section {
     background: var(--bg-section);
